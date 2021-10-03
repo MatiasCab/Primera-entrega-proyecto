@@ -14,9 +14,9 @@ namespace RoleplayGame
         {
             Knight templario; 
             templario= new Knight("Templario");
-            templario.Sword = new Sword();
-            templario.Shield = new Shield();
-            templario.Armor = new Armor();
+            templario.AddItem(new Sword());
+            templario.AddItem(new Shield());
+            templario.AddItem(new Armor());
 
             int expected1 = 20;
             int actual1 = templario.AttackValue;
@@ -28,9 +28,9 @@ namespace RoleplayGame
         {
             Knight templario; 
             templario= new Knight("Templario");
-            templario.Sword = new Sword();
-            templario.Shield = new Shield();
-            templario.Armor = new Armor();
+            templario.AddItem(new Sword());
+            templario.AddItem(new Shield());
+            templario.AddItem(new Armor());
 
             int expected2 = 39;
             int actual2 = templario.DefenseValue;
@@ -45,13 +45,13 @@ namespace RoleplayGame
         public void TestReciveAttack()
         {
             Dwarf gimli = new Dwarf("Gimli");
-            gimli.Axe = new Axe();
-            gimli.Helmet = new Helmet();
-            gimli.Shield = new Shield();
+            gimli.AddItem(new Axe());
+            gimli.AddItem(new Helmet());
+            gimli.AddItem(new Shield());
 
             Archer legolas = new Archer("Legolas");
-            legolas.Bow = new Bow();
-            legolas.Helmet = new Helmet();
+            legolas.AddItem(new Bow());
+            legolas.AddItem(new Helmet());
             legolas.ReceiveAttack(gimli.AttackValue);
             int expected= 93;
             int actual = legolas.Health;
@@ -65,11 +65,11 @@ namespace RoleplayGame
         public void TestDefenseValue()
         {
             SpellsBook book = new SpellsBook();
-            book.Spells = new Spell[]{ new Spell() };
+            book.AddSpell(new Spell());
 
             Wizard gandalf; 
             gandalf= new Wizard("Gandalf");
-            gandalf.Staff = new Staff();
+            gandalf.AddItem(new Staff());
             gandalf.SpellsBook = book;
 
             int expected = 170;

@@ -1,89 +1,57 @@
+using System.Collections.Generic;
+
 namespace RoleplayGame
 {
-    public class Wizard : ICharacter
+    public class Wizard : Character,ICharacter
     {
-        private int health = 100;
 
-        public Wizard(string name)
-        {
-            this.Name = name;
-        }
+        public SpellsBook spellsBook;
 
-        public string Name { get; set; }
-
-        public SpellsBook SpellsBook { get; set; }
-
-        public Staff Staff { get; set; }
-
-        public int AttackValue
+        public SpellsBook SpellsBook
         {
             get
             {
-                if (Staff != null && SpellsBook != null)
-                {
-                    return SpellsBook.AttackValue + Staff.AttackValue;
-                }
-                if (Staff != null)
-                {
-                    return Staff.AttackValue;
-                }
-                if (SpellsBook != null)
-                {
-                    return SpellsBook.AttackValue;
-                }
-                else
-                {
-                    return 0;
-                }
+                return this.spellsBook;
+            }set
+            {
+                this.spellsBook = value;
             }
         }
-
-        public int DefenseValue
+        new public int AttackValue
         {
             get
             {
-                if (Staff != null && SpellsBook != null)
+                int value = 0;
+                foreach (IItem item in items)
                 {
-                    return SpellsBook.DefenseValue + Staff.DefenseValue;
+                    if (item is IAttackValue)
+                    {
+                        value += (item as IAttackValue).AttackValue;
+                    }
                 }
-                if (Staff != null)
-                {
-                    return Staff.DefenseValue;
-                }
-                if (SpellsBook != null)
-                {
-                    return SpellsBook.DefenseValue;
-                }
-                else
-                {
-                    return 0;
-                }
+                value += this.SpellsBook.AttackValue;
+                return value;
             }
         }
 
-        public int Health
+        new public int DefenseValue
         {
             get
             {
-                return this.health;
-            }
-            private set
-            {
-                this.health = value < 0 ? 0 : value;
+                int value = 0;
+                foreach (IItem item in items)
+                {
+                    if (item is IDefenseValue)
+                    {
+                        value += (item as IDefenseValue).DefenseValue;
+                    }
+                }
+                value += this.SpellsBook.DefenseValue;
+                return value;
             }
         }
-
-        public void ReceiveAttack(int power)
+        public Wizard(string name):base(name)
         {
-            if (this.DefenseValue < power)
-            {
-                this.Health -= power - this.DefenseValue;
-            }
         }
-
-        public void Cure()
-        {
-            this.Health = 100;
-        }
-    }
+}
 }
