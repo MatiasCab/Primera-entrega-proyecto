@@ -53,7 +53,7 @@ namespace RoleplayGame
             legolas.AddItem(new Bow());
             legolas.AddItem(new Helmet());
             legolas.ReceiveAttack(gimli.AttackValue);
-            int expected= 93;
+            int expected= 85;
             int actual = legolas.Health;
             Assert.AreEqual(expected,actual);
         }
@@ -72,7 +72,7 @@ namespace RoleplayGame
             gandalf.AddItem(new Staff());
             gandalf.SpellsBook = book;
 
-            int expected = 170;
+            int expected = 120;
             int actual = gandalf.DefenseValue;
             Assert.AreEqual(expected,actual);
         }
@@ -89,5 +89,41 @@ namespace RoleplayGame
             Assert.AreEqual(expected,actual);
         }/* Se testea la la creacion de los personajes con el tipo ICharacter, en este caso, la del arquero. Esto es para ver si la
             implementacion de la interfaz trae problemas no deseados*/
+
+        [Test]
+        public void TestEnemiReciveDamage()
+        {
+            Character e1 = new Enemie("e1",2,100);
+            Character p1 = new Archer("p1");
+            IItem H = new Helmet();
+            IItem B = new Bow();
+            IItem S = new Sword();
+            e1.AddItem(H);
+            e1.AddItem(S);
+            p1.AddItem(B);
+            e1.ReceiveAttack(p1.AttackValue);
+            int expected= 95;
+            int actual = e1.Health;
+            Assert.AreEqual(expected,actual);
+        }
+        /* Test para determnar si la nueva clase enemi se omcporat com debe,y se es capaz de recibir daño, a pesar de que su vida no es predeterminada*/
+                [Test]
+        public void TestVictoryPoints()
+        {
+            Character e1 = new Enemie("e1",2,5);
+            Character p1 = new Knight("p1");
+            IItem H = new Helmet();
+            IItem B = new Bow();
+            IItem S = new Sword();
+            e1.AddItem(H);
+            e1.AddItem(S);
+            p1.AddItem(B);
+            e1.ReceiveAttack(p1.AttackValue);
+            p1.AddVP(e1.VP);
+            int actual = p1.VP;
+            int expected =2;
+            Assert.AreEqual(expected,actual);
+        }
+        /*Test para determinar si la adicion de puntos de victoria funciona correctamente*/
     }
 }

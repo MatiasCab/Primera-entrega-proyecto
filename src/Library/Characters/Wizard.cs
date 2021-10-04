@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace RoleplayGame
 {
-    public class Wizard : Character,ICharacter
+    public class Wizard : Character,ICharacter,IHero
     {
 
         public SpellsBook spellsBook;

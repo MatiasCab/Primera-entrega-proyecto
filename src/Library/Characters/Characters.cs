@@ -4,6 +4,7 @@ namespace RoleplayGame
     public class Character
     {
         protected int health = 100;
+        protected int vp = 0;
         
         protected List<IItem> items = new List<IItem>();
 
@@ -13,6 +14,7 @@ namespace RoleplayGame
         }
 
         public string Name { get; set; }
+
 
         public int AttackValue
         {
@@ -53,9 +55,20 @@ namespace RoleplayGame
             {
                 return this.health;
             }
-            private set
+            protected set
             {
                 this.health = value < 0 ? 0 : value;
+            }
+        }
+
+        public int VP
+        {
+            get
+            {
+                return this.vp;
+            }protected set
+            {
+                this.vp=value;
             }
         }
 
@@ -63,7 +76,7 @@ namespace RoleplayGame
         {
             if (this.DefenseValue < power)
             {
-                this.Health -= power - this.DefenseValue;
+                this.Health -= (power - this.DefenseValue);
             }
         }
 
@@ -80,6 +93,11 @@ namespace RoleplayGame
         public void RemoveItem(IItem item)
         {
             items.Remove(item);
-        }   
+        }
+
+        public void AddVP(int vp)
+        {
+            this.VP+=vp;
+        }
     }
 }
