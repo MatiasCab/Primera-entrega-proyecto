@@ -248,7 +248,7 @@ namespace Program
                         enemigos = enemigosRestantes;
                     }
                 }
-            if (contador == 8)//este if es para un caso especial...descubrelo
+            if (contador == 6)//este if es para un caso especial...descubrelo
             {
                 Console.WriteLine("PUM...giro dramatico");
                 Thread.Sleep(1000);
