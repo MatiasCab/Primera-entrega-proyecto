@@ -15,6 +15,7 @@ namespace Program
         private static void DoEncounter()
         {
             Random numero = new Random();
+            //listas para guardar los perosnajes y enemigos
             List<Character> personajes = new List<Character>();
             List<Enemie> enemigos = new List<Enemie>();
             Console.WriteLine("Elija la cantidad de personajes");
@@ -28,7 +29,7 @@ namespace Program
                 Console.WriteLine("Elija entre las razas actuales permitidas:\n1-Wizard\n2-Archer\n3-Dwarf\n4-Knight");
                 int raza = Convert.ToInt32(Console.ReadLine());
                 Thread.Sleep(500);
-                Console.WriteLine("Elija el nombre para este personaje");
+                Console.WriteLine("Elija el nombre para este personaje");//se crean los personajes
                 string name = Console.ReadLine();
                 switch(raza)
                 {
@@ -54,7 +55,7 @@ namespace Program
                 }
                 }
                 int itemspermitidos = 2;
-                if (Convert.ToString(personajes[personajes.Count-1].GetType()) == "RoleplayGame.Wizard")
+                if (Convert.ToString(personajes[personajes.Count-1].GetType()) == "RoleplayGame.Wizard")//se toma en cuenta si la raza elegida es mago para colocarle ellibro de hechizos
                 {
                 Wizard personaje = (personajes[personajes.Count-1] as Wizard);
                 SpellsBook book = new SpellsBook();
@@ -63,7 +64,7 @@ namespace Program
                 itemspermitidos = 1;
                 }
                 Thread.Sleep(600);
-                for (int repeticiones=0;repeticiones<itemspermitidos;repeticiones++)
+                for (int repeticiones=0;repeticiones<itemspermitidos;repeticiones++)//se equipan lo heroes
                 {
                     bool correctItem = false;
                     int item = -1;
@@ -87,7 +88,7 @@ namespace Program
             Console.WriteLine("Elija la cantidad de enemigos");
             int cantidadEnemigos = Convert.ToInt32(Console.ReadLine());
             Thread.Sleep(500);
-            for (int number = 0;number<cantidadEnemigos;number++)
+            for (int number = 0;number<cantidadEnemigos;number++)//se crean los enemigos
             {
                 Console.WriteLine("Ingrese el nombre del enemigo, la vida, y la cantidad de puntos de veictoria que posee (los items se generan aleatoriamente");
                 Console.Write("Nombre:");
@@ -98,7 +99,7 @@ namespace Program
                 int vp = Convert.ToInt32(Console.ReadLine());
                 enemigos.Add(new Enemie(name,vp,vida));
                 int item;
-                for (var vueltas=1;vueltas<=2;vueltas++)
+                for (var vueltas=1;vueltas<=2;vueltas++)//se equipan los enemigos
                 {
                     if (vueltas%2!=0)
                     {
@@ -123,12 +124,13 @@ namespace Program
             int restPersonajes = 1;
             bool murio = false;
             int contador = 0;
-            while (battle)
+            while (battle)// A partir de aqui empieza toda la logica del juego, tomo en cuenta todos los aspectos indicados de la letra
             {
                 bool oneHero = false;
                 bool moreEnemies = false;
                 List<Character> heroesRestantes = new List<Character>(); 
                 List<Enemie> enemigosRestantes = new List<Enemie>(); 
+                //los if a continuacioncomparan la coantidad de enemigos y heroes, esto es para saber que comportamiento teien que tener la batalla
                 if (personajes.Count == 1)
                 {
                     oneHero = true;
@@ -138,7 +140,7 @@ namespace Program
                     restPersonajes = 1;
                     moreEnemies = true;
                 }
-                for (var enemigo=0;enemigo<enemigos.Count;enemigo++)
+                for (var enemigo=0;enemigo<enemigos.Count;enemigo++)// en este for los eneigos atacan a los heroes, su manera de astacar cambia dependiendo de la cantidad de heroes
                 {   
                     if (oneHero)
                     {
@@ -201,7 +203,7 @@ namespace Program
                         }
                     }
                 }
-                if (heroesRestantes.Count <= 0)
+                if (heroesRestantes.Count <= 0)//este if es para saber si murieron todos los heores
                 {
                     battle = false;
                     Console.WriteLine("Moriste defendiendo la carga valientemente.\nGAME OVER");
@@ -211,7 +213,7 @@ namespace Program
                 }
                 if (battle)
                 {
-                    foreach (Enemie enemigo in enemigos)
+                    foreach (Enemie enemigo in enemigos)// en este for los heroes atacan a los enemigos, todos los herores atacan a cada uno de los enemigos 1 vez
                     {
                         murio = false;
                         foreach (Character personaje in personajes)
@@ -235,7 +237,7 @@ namespace Program
                             enemigosRestantes.Add(enemigo);
                         }
                     }
-                    if (enemigosRestantes.Count <= 0)
+                    if (enemigosRestantes.Count <= 0)//este if es para saber si quedan enemigos vivos
                     {
                         battle = false;
                         Console.WriteLine("Felicidades, defendiste la carga con exito.\nGAME OVER");
@@ -246,7 +248,7 @@ namespace Program
                         enemigos = enemigosRestantes;
                     }
                 }
-            if (contador == 8)
+            if (contador == 8)//este if es para un caso especial...descubrelo
             {
                 Console.WriteLine("PUM...giro dramatico");
                 Thread.Sleep(1000);
@@ -263,7 +265,7 @@ namespace Program
             contador++;
             }
         }
-            private static void SelectItem(Character personaje, int item)
+            private static void SelectItem(Character personaje, int item)//metodo para selecionar items(tener este metdod ahora el repetir codigo)
             {
                 switch(item)
                 {

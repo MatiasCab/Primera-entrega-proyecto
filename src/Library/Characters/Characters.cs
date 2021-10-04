@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+/*Esto es una super clase de todos los persionajes, el tenrla ahora un monton de codigo porque no hayque poner los metodos y atributos comunes encada raza*/
 namespace RoleplayGame
 {
     public class Character

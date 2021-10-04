@@ -4,3 +4,4 @@ namespace RoleplayGame
     {
     }
 }
+//interfaz para hacer la distincion a los heroes
